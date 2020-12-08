@@ -33,51 +33,73 @@ namespace SportsORM.Controllers
         {   ViewBag.WomensLeagues = _context.Leagues
                 .Where(l => l.Name.Contains("Women"))
                 .ToList();
-             ViewBag.HockeyLeagues = _context.Leagues
+
+            ViewBag.HockeyLeagues = _context.Leagues
                 .Where(l => l.Sport.Contains("Hockey"))
                 .ToList();
+
             ViewBag.FootballLeagues = _context.Leagues
-                .Where(l => l.Sport !=("Football"))
+                .Where(l => l.Sport.Contains("Football"))
                 .ToList();
-            ViewBag.Conference = _context.Leagues
-                .Where(l => l.Name.Contains("Conference"))
+                
+            ViewBag.ConferenceLeagues = _context.Leagues
+                .Where(l => l.Name.Contains("Conferences"))
                 .ToList();
-            ViewBag.Atlantic = _context.Leagues
+
+            ViewBag.AtlanticLeagues = _context.Leagues
                 .Where(l => l.Name.Contains("Atlantic"))
                 .ToList();
-            ViewBag.Dallas = _context.Teams
+
+
+            ViewBag.DallasTeams = _context.Teams
                 .Where(l => l.Location.Contains("Dallas"))
                 .ToList();
-            ViewBag.Raptors = _context.Teams
+
+            ViewBag.RaptorsTeams = _context.Teams
                 .Where(l => l.TeamName.Contains("Raptors"))
                 .ToList();
-            ViewBag.City = _context.Teams
+
+            ViewBag.CityTeams = _context.Teams
                 .Where(l => l.Location.Contains("City"))
                 .ToList();
-            ViewBag.T = _context.Teams
-                .Where(l => l.TeamName.StartsWith("T"))
+
+            ViewBag.StartWithTTeams = _context.Teams
+                .Where(tTeams => tTeams.TeamName.StartsWith("T"))
                 .ToList();
+
             //ordered alphabetically by location 
-            ViewBag.Location = _context.Teams
-                .OrderBy(l => l.Location)
+            ViewBag.TeamsSortedByLocation = _context.Teams
+                .OrderBy(teamByLocation => teamByLocation.Location)
                 .ToList();
-            ViewBag.TeamName = _context.Teams
-                .OrderByDescending(l => l.TeamName)
+
+            ViewBag.TeamsReverseOrder = _context.Teams
+                .OrderByDescending(TReverseOrder => TReverseOrder.TeamName)
                 .ToList();
-            ViewBag.LastName = _context.Players
-                .Where(l => l.LastName.Contains("Cooper"))
+
+
+            ViewBag.LastNameCooperPlayers = _context.Players
+                .Where(p => p.LastName.Contains("Cooper"))
                 .ToList();
-            ViewBag.FirstName = _context.Players
-                .Where(l => l.FirstName.Contains("Joshua"))
+
+            // ViewBag.FirstName = _context.Players
+            //     .Where(Player => Player.FirstName.Contains("Joshua"))
+            //     .ToList();
+
+            // PlayersNameJoshua is of type List<Player>
+            ViewBag.PlayersNamesJoshua = _context.Players
+                .Where(Player => Player.FirstName.Contains("Joshua"))
                 .ToList();
+
                 //exclude first names that cointain "Joshua"
-            ViewBag.LastName = _context.Players
-                .Where(l => l.LastName.Contains("Cooper"))
+            ViewBag.LastNameCooperNoJoshuaPlayers = _context.Players
+                .Where(coopPlayerNoJoshua => coopPlayerNoJoshua.LastName.Contains("Cooper"))
                 .Where(f => !f.FirstName.Contains("Joshua"))
                 .ToList();
-              ViewBag.FirstName = _context.Players
-                .Where(l => l.FirstName.Contains("Alexander")) 
+            
+            ViewBag.AlexAndWyattPlayers = _context.Players
+                .Where(duonames => duonames.FirstName.Contains("Alexander")|| duonames.FirstName.Contains("Wyatt")) 
                 .ToList();
+
             
             return View();
         }
